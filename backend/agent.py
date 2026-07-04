@@ -216,7 +216,9 @@ class SalesDealAgent:
                 "cost": routing_info.get("total_cost", 0),
                 "complexity": routing_info.get("complexity", "unknown"),
                 "reason": routing_info.get("reason", ""),
-                "savings_percentage": routing_info.get("savings_percentage"),
+                "routing_strategy": routing_info.get("routing_strategy", ""),
+                "cost_saved": routing_info.get("cost_saved", 0),
+                "quality_check_passed": routing_info.get("quality_check_passed"),
             },
             "memory": {
                 "has_prior_context": has_prior_context,

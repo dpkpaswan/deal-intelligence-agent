@@ -45,11 +45,24 @@ export default function ChatWindow({ prospect, messages, isLoading, onSendMessag
     if (model === 'mock' || model === 'error') {
       return { label: model, className: 'message__routing-badge--mock' };
     }
-    if (model.includes('8b') || model.includes('instant')) {
-      return { label: '⚡ 8B Fast', className: 'message__routing-badge--fast' };
+
+    // CascadeFlow returns "8b+70b" when both models ran (cascade)
+    const cascaded = routing.cascaded;
+    const draftAccepted = routing.draft_accepted;
+
+    if (cascaded && !draftAccepted) {
+      // Draft failed quality check → verifier produced the response
+      return { label: '🧠 70B (cascaded)', className: 'message__routing-badge--powerful' };
+    }
+    if (cascaded && draftAccepted) {
+      // Draft passed quality check → fast model saved cost
+      return { label: '⚡ 8B (cascade saved)', className: 'message__routing-badge--fast' };
     }
     if (model.includes('70b') || model.includes('versatile')) {
       return { label: '🧠 70B Pro', className: 'message__routing-badge--powerful' };
+    }
+    if (model.includes('8b') || model.includes('instant')) {
+      return { label: '⚡ 8B Fast', className: 'message__routing-badge--fast' };
     }
     return { label: model.split('/').pop(), className: 'message__routing-badge--fast' };
   };

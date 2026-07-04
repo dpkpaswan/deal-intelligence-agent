@@ -1,0 +1,19 @@
+# Sales Deal Intelligence Agent — Backend Dependencies
+
+# Core
+fastapi>=0.115.0
+uvicorn[standard]>=0.30.0
+python-dotenv>=1.0.0
+pydantic>=2.0.0
+
+# LLM Routing — CascadeFlow with Groq provider
+cascadeflow[groq]>=0.1.0
+
+# Memory — Hindsight client
+hindsight-client>=0.1.0
+
+# Groq SDK (also pulled by cascadeflow[groq], listed explicitly for fallback mode)
+groq>=0.9.0
+
+# Supabase (optional — app works without it using in-memory storage)
+supabase>=2.0.0
